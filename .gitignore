@@ -1,0 +1,16 @@
+# Virtual environment
+.venv/
+
+# Byte-compiled / optimized / cached files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE (PyCharm / JetBrains)
+.idea/
+
+# OS
+.DS_Store
+
+credentials.json
+token.pickle

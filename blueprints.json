@@ -1,0 +1,9 @@
+{
+  "blueprints": [
+    {
+      "path": "modules/gdDownloader",
+      "name": "gdDownloader_bp",
+      "url_prefix": "/gdDownloader"
+    }
+  ]
+}
