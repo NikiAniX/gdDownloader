@@ -1,0 +1,59 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "gdDownloader API",
+    "description": "Download files/folders from Google Drive, optionally deleting them from Drive afterwards.",
+    "version": "1.0.0"
+  },
+  "servers": [{ "url": "/" }],
+  "paths": {
+    "/gdDownloader": {
+      "post": {
+        "summary": "Download (and optionally delete) Google Drive items",
+        "operationId": "triggerDownload",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": { "schema": { "$ref": "#/components/schemas/DownloadRequest" } },
+            "multipart/form-data": { "schema": { "$ref": "#/components/schemas/DownloadRequest" } }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Processed. `status` is `success` or `error` (e.g. auth failure or a failed item).",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/DownloadResponse" } } }
+          },
+          "400": {
+            "description": "Validation failed.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DownloadResponse" },
+                "example": { "status": "error", "logs": ["'drive_ids' is required (comma-separated IDs)."] }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DownloadRequest": {
+        "type": "object",
+        "required": ["drive_ids"],
+        "properties": {
+          "drive_ids": { "type": "string", "description": "Comma-separated Drive file/folder IDs.", "example": "1AbC...,2DeF..." },
+          "output_dir": { "type": "string", "description": "Local directory to save into. Must not contain '..'.", "default": "./google_drive_downloaded" },
+          "delete_after": { "type": "string", "enum": ["true", "false"], "default": "true", "description": "Delete from Drive after download." }
+        }
+      },
+      "DownloadResponse": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "enum": ["success", "error"] },
+          "logs": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}
