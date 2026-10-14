@@ -9,6 +9,7 @@ gdDownloader/
 ├── app.py                      # Bootstrap — loads blueprints from JSON, creates Flask app
 ├── blueprints.json             # Feature manifest (add plugins without touching code)
 ├── requirements.txt            # Dependencies
+├── openapi.json                # OpenAPI 3 spec for the API (import into Swagger UI / Postman)
 ├── drive_ids.txt               # Default input: comma-separated Drive file/folder IDs
 ├── modules/                    # Feature directories — one per plugin/blueprint
 │   └── gdDownloader/           # Google Drive download-and-delete feature
@@ -46,6 +47,8 @@ python app.py
 ```
 
 ## API
+
+The OpenAPI 3 spec lives in [`openapi.json`](openapi.json). Paste it into [editor.swagger.io](https://editor.swagger.io) or import it into Postman to explore the API. Keep it in sync when the route changes.
 
 ### POST `/gdDownloader`
 
