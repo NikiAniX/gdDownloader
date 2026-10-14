@@ -13,6 +13,8 @@ python -m pytest       # run tests (if any)
 - **File upload validation** — always merge `request.form` + `request.files` into one dict before passing to validators (see `modules/gdDownloader/routes.py`).
 - **External plugins** use a `"path"` in blueprints.json that points to an **absolute filesystem path** (not an import name).
 
+- **API spec** — `openapi.json` at the repo root is the static OpenAPI spec. Update it whenever a route's fields or responses change.
+
 ## Architecture
 
 ```
@@ -20,6 +22,7 @@ gdDownloader/
 ├── app.py                      # entry point — loader + factory + server
 ├── blueprints.json             # manifest: directory → blueprint name → URL prefix
 ├── requirements.txt            # Dependencies
+├── openapi.json                # OpenAPI 3 spec (static, hand-maintained)
 ├── drive_ids.txt               # Default input: comma-separated Drive IDs
 ├── modules/                    # Feature directories — one per plugin/blueprint
 │   └── gdDownloader/           # Google Drive download-and-delete (self-contained)
